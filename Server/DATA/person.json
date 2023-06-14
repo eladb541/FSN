@@ -1,0 +1,17 @@
+{
+  "persons": [
+    { "id": "64830c8f44a1de9bfd274e02",
+    "permissions": {
+      "creatM": true,
+      "viewM": true,
+      "updateM": true,
+      "deleteM": true,
+      "subV": true,
+      "subC": true,
+      "subU": true,
+      "subD": true,
+      "Admin": true
+    }
+      }
+  ]
+}
