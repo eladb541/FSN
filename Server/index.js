@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const { connectDB,keyDB } = require('./configs/db');
-const usersRouter = require('../Server/roters/usersRouter');
-const loginRouter=require('../Server/roters/loginRouter')
+const usersRouter = require('./routers/usersRouter');
+const loginRouter=require('./routers/loginRouter')
 
 const app = express();
 const port = 3000;
