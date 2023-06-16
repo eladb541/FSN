@@ -1,36 +1,44 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export const Login = () => {
-  const [username, setusername] = useState([]);
-  const [password, setpassword] = useState([]);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const url = 'http://localhost:3000/login';
+
   async function login() {
     const logindata = {
       username: username,
       password: password,
     };
 
-    const resp = await fetch(url, {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(logindata),
-    });
-    const data = await resp.json();
-    sessionStorage['accessToken'] = data;
-    alert(sessionStorage);
+    try {
+      const resp = await fetch(url, {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(logindata),
+      });
+      const data = await resp.json();
+      console.log(data);
+      
+      console.log('Permissions:', data.msg[0].permissions);
+       console.log('Key:', data.msg[0].username);
+      // sessionStorage['accessToken'] = data;
+      // alert(sessionStorage);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
     <div>
-      <h1>login</h1>
+      <h1>Login</h1>
       <br />
-      username: <input type='text' onChange={(e) => setusername(e.target.value)} />
+      Username: <input type='text' onChange={(e) => setUsername(e.target.value)} />
       <br />
-      password: <input type='password' onChange={(e) => setpassword(e.target.value)} />
+      Password: <input type='password' onChange={(e) => setPassword(e.target.value)} />
       <br />
-      <button onClick={() => login()}>login</button>
+      <button onClick={() => login()}>Login</button>
     </div>
   );
 };

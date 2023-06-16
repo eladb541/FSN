@@ -1,43 +1,34 @@
-const { getAllUsers: getAllUsersWS,getUserByIdWS } = require('../DAL/usersWS');
-const { getAllPersons,getPersonById } = require('../DAL/usersFile');
+const { getPersonPermmisionsById } = require('../DAL/usersFile');
 const User = require('../models/userModel');
-const Sk=require('../models/sessionKey');
-const express=require('express')
-const jwt=require('jsonwebtoken')
-const router=express.Router();
+const Sk = require('../models/sessionKey');
+const jwt = require('jsonwebtoken');
 
 const login = async (obj) => {
-    console.log("Bll")
-  const {username,password} = obj;
-  console.log(obj)
+  const { username, password } = obj;
 
+  try {
+    const user = await User.findOne({ username, password });
+    if (!user) {
+      return { status: 404, msg: 'User not found' };
+    }
 
-  try{
-        const user=await User.findOne({username,password})
-    if(!user){
-        console.log("dont find user")
-        return res.status(404).json({error:"one of identify details is wrong"})
-        
-        }
-        const session=await Sk.findOne();
-    if(!session){
-        console.log("dont find session")
-        return res.status(500).json({error:"session is not found"})
-        }
-        const accessToken=jwt.sign(
-            {"id" :user._id , "username":user.username},
-            accessToken=session.key
-        )
-        return res(session) 
+    const userPer = await getPersonPermmisionsById(user.id);
+
+    const session = await Sk.find({});
+    if (!session || session.length === 0) {
+      return { status: 500, msg: 'Session is not found' };
+    }
+
+    const accessToken = jwt.sign(
+      { id: user.id, username: user.username, permissions: userPer },
+      session[0].key
+    );
+
+    return { status: 200, token: accessToken };
+  } catch (error) {
+    console.error(error);
+    return { status: 500, msg: 'Server error' };
   }
-  catch(error) {
-    console.log("catch")
-console.error(error)
-return res(null)
-  }
- 
-  };
+};
 
-;
-
-module.exports = {login};
+module.exports = { login };
