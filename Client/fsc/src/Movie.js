@@ -1,29 +1,21 @@
-import React from 'react'
-const Movie = require('../../../Server/models/MovieModel');
-const Member = require('../../../Server/models/MemberModel');
+import React from 'react';
+
+export const Movie = ({ movie }) => {
 
 
 
-export const Movie = () => {
     
-    useEffect(() => {
-        async function initilizedataMovie() {
-        const allmovies = await Movie.find({});   
-
-          const userResponse = await axios.get(userURL);
-          setAllUsers(userResponse.data);
-          setUsers(userResponse.data);
-        }  
-        initilizedataMovie();
-      }, []);
-
-
-
-
-
-
+  // Check if movie prop is null
+  if (!movie) {
+    return null; // or return a placeholder component/error message
+  }
 
   return (
-    <div>Movie</div>
-  )
-}
+    <div>
+      <h2>{movie.name}</h2>
+      <img src={movie.ImageUrl} alt={movie.name} />
+      <p>Genres: {movie.Genres.join(', ')}</p>
+      <p>Year of Release: {movie.premiered}</p>
+    </div>
+  );
+};

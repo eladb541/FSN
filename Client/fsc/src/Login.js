@@ -4,7 +4,7 @@ export const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const url = 'http://localhost:3000/login';
+  const url = 'http://localhost:8000/login';
 
   async function login() {
     const logindata = {

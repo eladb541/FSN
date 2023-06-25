@@ -30,8 +30,8 @@ const getPersonPermmisionsById = async (ids) => {
   try {
     const data = await fs.promises.readFile(filePath, 'utf8');
     const parsedData = JSON.parse(data);
-    const persons = parsedData.persons.filter((person) => ids.includes(person.id));
-    return persons[0].permissions;
+    const person = parsedData.persons.find((person) => ids.includes(person.id));
+    return person.permissions;
   } catch (error) {
     console.log(error);
     return null; // or throw an error if needed
