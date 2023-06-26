@@ -6,7 +6,7 @@ const movieSchema = new mongoose.Schema(
     name: String,
     Genres: [String],
     ImageUrl:String,
-    premiered:String
+    premiered:Date
 
     
   },

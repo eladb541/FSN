@@ -8,6 +8,6 @@ const sessionKSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
-const SK = mongoose.model('SessionK', sessionKSchema);
+const SK = mongoose.model('sessionk', sessionKSchema);
 
 module.exports = SK;

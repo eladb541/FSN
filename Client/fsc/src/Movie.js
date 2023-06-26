@@ -1,21 +1,24 @@
 import React from 'react';
+import './Movie.css';
 
 export const Movie = ({ movie }) => {
-
-
-
-    
-  // Check if movie prop is null
+ 
   if (!movie) {
-    return null; // or return a placeholder component/error message
+    return null; 
   }
+
+  const premieredDate = new Date(movie.premiered).toLocaleDateString();
 
   return (
     <div>
-      <h2>{movie.name}</h2>
-      <img src={movie.ImageUrl} alt={movie.name} />
-      <p>Genres: {movie.Genres.join(', ')}</p>
-      <p>Year of Release: {movie.premiered}</p>
+      <div className='movie-container'>
+        <h2>{movie.name}</h2>
+        <img src={movie.ImageUrl} alt={movie.name} />
+        <p>Genres: {movie.Genres.join(', ')}</p>
+        <p>Year of Release: {premieredDate}</p>
+      </div>
     </div>
   );
 };
+
+export default Movie;
