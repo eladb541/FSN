@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import Movie from './Movie';
-import './Movies.css';
+import Member from './Member';
+import './Members.css';
+
 import { Link } from 'react-router-dom';
 
-export const Movies = () => {
-  const [allmovies, setallmovies] = useState([]);
-  const [showmovies, setshowmovies] = useState([]);
+export const Members = () => {
+  const [allmembers, setallmembers] = useState([]);
+  const [showmembers, setshowmembers] = useState([]);
   const [search, setSearch] = useState("");
-
+  
 
   useEffect(() => {
     async function fetchData() {
-      const url = 'http://localhost:8000/movies';
+      const url = 'http://localhost:8000/members';
       try {
         const resp = await fetch(url, {
           method: 'get',
           headers: { 'Content-Type': 'application/json' },
         });
         const data = await resp.json();
-        setallmovies(data);
+        setallmembers(data);
       } catch (error) {
         console.error(error);
       }
@@ -27,39 +28,39 @@ export const Movies = () => {
   }, []);
 
 
-useEffect(() => {
+  useEffect(() => {
     async function fetchDatachange() {
-      const url = 'http://localhost:8000/movies';
+      const url = 'http://localhost:8000/members';
       try {
         const resp = await fetch(url, {
           method: 'get',
           headers: { 'Content-Type': 'application/json' },
         });
         const data = await resp.json();
-        setallmovies(data);
+        setallmembers(data);
       } catch (error) {
         console.error(error);
       }
     }
-fetchDatachange();
-  }, [allmovies]);
+    fetchDatachange();
+  }, [allmembers]);
 
 
 
   useEffect(() => {
-    setshowmovies(allmovies);
-  }, [allmovies]);
+    setshowmembers(allmembers);
+  }, [allmembers]);
 
   useEffect(() => {
     if (search !== "") {
-      const filteredMovies = allmovies.filter((movie) =>
-        movie.name.toLowerCase().includes(search.toLowerCase())
+      const filteredmembers = allmembers.filter((member) =>
+      member.name.toLowerCase().includes(search.toLowerCase())
       );
-      setshowmovies(filteredMovies);
+      setshowmembers(filteredmembers);
     } else {
-      setshowmovies(allmovies);
+      setshowmembers(allmembers);
     }
-  }, [search, allmovies]);
+  }, [search, allmembers]);
 
 
 
@@ -76,21 +77,22 @@ fetchDatachange();
       </div>
       
    
-      <div className="movies-container">
-        {showmovies.map((movie) => (
-          <Movie key={movie._id} movie={movie} />
-        ))}
+      <div className="members-container">
+      {showmembers.map((member) => (
+  <Member key={member._id} member={member} />
+))}
+
       </div>
       
    
       
       <div>
-        <Link to="/addmovie">
-          <button className="add-movie-button">Add New Movie</button>
+        <Link to="/addmember">
+          <button className="add-member-button">Add New Member</button>
         </Link>
       </div>
     </div>
   );
 };
 
-export default Movies;
+export default Members;

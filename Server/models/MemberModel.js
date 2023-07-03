@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const memberSchema = new mongoose.Schema(
   {
-    fullname: String,
+    name: String,
     email: String,
     city:String,
   

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import './AddMovie.css'; // Import a CSS file to define custom styles
+import './AddMovie.css';
 
-export const AddMovie = () => {
+export const Addmovie = () => {
   const [Genres, setGenres] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectname, setname] = useState(null);
@@ -11,6 +11,8 @@ export const AddMovie = () => {
   const [Genres1, setGenre1] = useState(null);
   const [Genres2, setGenre2] = useState(null);
   const [Genres3, setGenre3] = useState(null);
+  const [id, setid] = useState(null);
+  const [uniqueid, setunique] = useState(null);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -46,12 +48,9 @@ export const AddMovie = () => {
         });
         const data = await resp.json();
         setGenres(data[0].Genres);
-        setGenre1(data[0].Genres[0])
-        setGenre2(data[0].Genres[0])
-        setGenre3(data[0].Genres[0])
-
-
-
+        setGenre1(data[0].Genres[0]);
+        setGenre2(data[0].Genres[0]);
+        setGenre3(data[0].Genres[0]);
       } catch (error) {
         console.error(error);
       }
@@ -59,60 +58,72 @@ export const AddMovie = () => {
     fetchGenres();
   }, []);
 
-  const createnew = async() => {
-   
-    const url = 'http://localhost:8000/maxsId';
+  useEffect(() => {
+    const updateMaxSid = async () => {
+      if (uniqueid !== null && id !== null) {
+        const url = 'http://localhost:8000/maxsId';
+        const newmaxSid = {
+          _id: uniqueid, // Use the updated uniqueid value
+          maxid: id, // Use the updated id value
+        };
 
-    //const logindata = {
-        //username: username,
-        //password: password,
-      //};
-  
+        console.log(newmaxSid);
+        try {
+          const resp = await fetch(url, {
+            method: 'put',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newmaxSid),
+          });
+          const data = await resp.json();
+          console.log(data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+
+    updateMaxSid();
+  }, [uniqueid, id]);
+
+  const Createnew = async () => {
+    const url = 'http://localhost:8000/maxsId';
+    const addurl = 'http://localhost:8000/movies';
+
+    try {
+      const resp1 = await fetch(url, {
+        method: 'get',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      const data1 = await resp1.json();
+      console.log(data1);
+
+      setunique(data1._id);
+      setid(Number(data1.maxid) + 1);
+
+      const newmovie = {
+        id: Number(data1.maxid) + 1, // Use the maxid value directly
+        name: selectname,
+        Genres: [Genres1, Genres2, Genres3],
+        ImageUrl: selectImageUrl,
+        premiered: Date(selectedDate),
+      };
+
+      console.log(newmovie);
       try {
-        const resp = await fetch(url, {
-          method: 'get',
+        const resp2 = await fetch(addurl, {
+          method: 'post',
           headers: { 'Content-Type': 'application/json' },
-          //body: JSON.stringify(logindata),
+          body: JSON.stringify(newmovie),
         });
-        const data = await resp.json();
-        console.log(data);
-        
-        
+        const data2 = await resp2.json();
+        console.log(data2);
       } catch (error) {
         console.error(error);
       }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
+    } catch (error) {
+      console.error(error);
+    }
   };
-  
-
-
-
-
 
   return (
     <div>
@@ -131,38 +142,42 @@ export const AddMovie = () => {
         placeholderText="Select a date"
       />
 
-      <br/>
+      <br />
       genres 1:
       <select onChange={handleGenre1Change}>
         {Genres.map((genre) => (
-          <option key={genre} value={genre}>{genre}</option>
+          <option key={genre} value={genre}>
+            {genre}
+          </option>
         ))}
       </select>
-      <br/>
+      <br />
       genres 2:
       <select onChange={handleGenre2Change}>
         {Genres.map((genre) => (
-          <option key={genre} value={genre}>{genre}</option>
+          <option key={genre} value={genre}>
+            {genre}
+          </option>
         ))}
       </select>
-      <br/>
+      <br />
       genres 3:
       <select onChange={handleGenre3Change}>
         {Genres.map((genre) => (
-          <option key={genre} value={genre}>{genre}</option>
+          <option key={genre} value={genre}>
+            {genre}
+          </option>
         ))}
       </select>
 
-      {console.log("gen1: " + Genres1)}
-      {console.log("gen2: " + Genres2)}
-      {console.log("gen3: " + Genres3)}
-    
-    <br/>
-    <button  onClick={createnew}>Create new</button>
+      {console.log('gen1: ' + Genres1)}
+      {console.log('gen2: ' + Genres2)}
+      {console.log('gen3: ' + Genres3)}
 
-
+      <br />
+      <button onClick={Createnew}>Create new</button>
     </div>
   );
 };
 
-export default AddMovie;
+export default Addmovie;

@@ -1,6 +1,6 @@
 {
   "persons": [
-    { "id": "648b2f6e97f2ec1063c53d9b",
+    { "id": "64887afc8f63305216f32b97",
     "permissions": {
       "creatM": true,
       "viewM": true,
@@ -12,6 +12,36 @@
       "subD": true,
       "Admin": true
     }
+      },
+
+      { "id": "649beff00f5f8827dc7f011d",
+    "permissions": {
+      "creatM": false,
+      "viewM": true,
+      "updateM": true,
+      "deleteM": true,
+      "subV": true,
+      "subC": true,
+      "subU": true,
+      "subD": true,
+      "Admin": false
+    }
+      },
+
+      { "id": "649bf0a10f5f8827dc7f011f",
+    "permissions": {
+      "creatM": false,
+      "viewM": true,
+      "updateM": true,
+      "deleteM": false,
+      "subV": true,
+      "subC": true,
+      "subU": true,
+      "subD": true,
+      "Admin": false
+    }
       }
+
+
   ]
 }

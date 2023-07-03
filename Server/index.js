@@ -6,6 +6,7 @@ const loginRouter=require('./routers/loginRouter')
 const movieRouter=require('./routers/movieRouter')
 const genresRouter=require('./routers/genresRouter')
 const maxssidRouter=require('./routers/maxsidRouter')
+const membersRouter=require('./routers/membersRouter')
 
 const app = express();
 const port = 8000;
@@ -21,7 +22,7 @@ app.use('/login',loginRouter);
 app.use('/movies',movieRouter);
 app.use('/genres',genresRouter);
 app.use('/maxsId',maxssidRouter);
-
+app.use('/members',membersRouter);
 
 
 

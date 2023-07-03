@@ -20,4 +20,25 @@ const putMoviesInDB = async (movies) => {
   });
 };
 
-module.exports = { getAllMovies, putMoviesInDB };
+// POST - Create
+const addmovie = async (obj) => {
+  const movie = new MovieModel(obj);
+  await movie.save();
+  return "created";
+};
+
+const deleteMovie = async (externalId) => {
+  await MovieModel.deleteOne({ _id: externalId });
+  return 'Deleted!';
+};
+
+
+const UpdateMovie = async (externalId, obj) => {
+  await MovieModel.updateOne({_id: externalId }, obj);
+
+  return 'Updated!';
+};
+
+
+
+module.exports = { getAllMovies, putMoviesInDB, addmovie,deleteMovie,UpdateMovie};

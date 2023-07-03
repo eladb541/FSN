@@ -20,7 +20,60 @@ router.get("/", async (req, res) => {
     return res.status(200).json(movies)
 
 
-})
+});
+router.post('/', async (req, res) => {
+    try{const obj = req.body;
+      const result = await movieBLL.addmovie(obj);
+      res.json.status(200).jsoon(result);
+
+    }
+    catch (error){
+     
+       return console.error(error);
+    }
+  
+  });
+
+  router.delete("/", async (req, res) => {
+    try {
+      const params = req.body;
+      const result = await movieBLL.deleteMovie(params._id);
+      res.status(200).json(result);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  router.put('/', async (req, res) => {
+    try {
+    
+  
+      const params = req.body;
+      const result = await movieBLL.UpdateMovie(params._id,params.obj);
+      res.json(result);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  });
+
 
 
 

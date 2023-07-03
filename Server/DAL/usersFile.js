@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path')
-
-const filePath = path.join(__dirname, '..\\DATA\\person.json')
+const jFile = require("jsonfile")
+const filePath = path.join(__dirname, '../DATA/person.json')
 
 
 
@@ -17,8 +17,8 @@ const getAllPersons = async () => {
 };
 const getPersonById = async (ids) => {
   try {
-    const data = await fs.promises.readFile(filePath, 'utf8');
-    const parsedData = JSON.parse(data);
+    const parsedData = await jFile.readFile(filePath);
+
     const persons = parsedData.persons.filter((person) => ids.includes(person.id));
     return persons;
   } catch (error) {
@@ -28,9 +28,9 @@ const getPersonById = async (ids) => {
 };
 const getPersonPermmisionsById = async (ids) => {
   try {
-    const data = await fs.promises.readFile(filePath, 'utf8');
-    const parsedData = JSON.parse(data);
-    const person = parsedData.persons.find((person) => ids.includes(person.id));
+    const parsedData = await jFile.readFile(filePath);
+   
+    const person = parsedData.persons.find((per) => per.id == ids );
     return person.permissions;
   } catch (error) {
     console.log(error);
