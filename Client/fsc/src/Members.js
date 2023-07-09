@@ -70,7 +70,7 @@ export const Members = () => {
         <input
           type="text"
           className="fixed-search"
-          placeholder="Search"
+          placeholder="Search by Name"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />

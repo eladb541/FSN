@@ -1,0 +1,49 @@
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .title-container h1 {
+    margin: 0;
+  }
+  
+  .members-container {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .members-container th,
+  .members-container td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .members-container th {
+    background-color: #f2f2f2;
+  }
+  
+  .fixed-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .fixed-search {
+    width: 100%;
+    padding: 5px;
+  }
+  
+  .add-member-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgb(42, 137, 30);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
