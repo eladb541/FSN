@@ -10,14 +10,13 @@ import { AddSubscribe } from './AddSubscribes';
 import AdminPage from './AdminPage'; // Update the import statement
 import AddUserPage from './Add_User'; // Update the import statement
 import Toolbar from './ToolBar'; // Update the import statement
-
+import './Bodyapp.css';
 
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
-function App() { 
+function Bodyapp() { 
   return (
-    <div className="App">
-      <Toolbar />
+    
       <div className='mybody'>
         <Routes>
           <Route exact path="/login" element={<Login />} />
@@ -29,12 +28,13 @@ function App() {
           <Route exact path="/addmember" element={<Add_M />} />
           <Route exact path="/subscribes" element={<MySubscribes />} />
           <Route exact path="/admin" element={<AdminPage />} />
-          <Route exact path="/addsubscribe" element={<AddSubscribe />} />
+          <Route exact path="/addsubscrib" element={<AddSubscribe />} />
           <Route exact path="/adduser" element={<AddUserPage />} /> 
         </Routes>
       </div>
-    </div>
+  
   );
 }
 
-export default App;
+export default Bodyapp;
+

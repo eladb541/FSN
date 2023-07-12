@@ -3,6 +3,7 @@ import Movie from './Movie';
 import './Movies.css';
 import { Link } from 'react-router-dom';
 
+
 export const Movies = () => {
   const [allmovies, setallmovies] = useState([]);
   const [showmovies, setshowmovies] = useState([]);

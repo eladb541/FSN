@@ -127,6 +127,11 @@ export const Addmovie = () => {
 
   return (
     <div>
+       <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
       <label htmlFor="name">Name:</label>
       <input type="text" id="name" placeholder="Enter the name" onChange={handlenameChange} />
       <br />

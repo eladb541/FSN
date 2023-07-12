@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Member from './Member';
 import './Members.css';
 
+
 import { Link } from 'react-router-dom';
 
 export const Members = () => {
@@ -66,6 +67,7 @@ export const Members = () => {
 
   return (
     <div>
+     
       <div className="fixed-container">
         <input
           type="text"
