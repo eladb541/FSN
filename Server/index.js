@@ -8,6 +8,11 @@ const genresRouter=require('./routers/genresRouter')
 const maxssidRouter=require('./routers/maxsidRouter')
 const membersRouter=require('./routers/membersRouter')
 const subscribesRouter=require('./routers/subscribesRouter')
+const adminRouter=require('./routers/adminRouter')
+const checkduplicateRouter=require('./routers/checkduplicateRouter')
+
+
+
 
 const app = express();
 const port = 8000;
@@ -25,6 +30,8 @@ app.use('/genres',genresRouter);
 app.use('/maxsId',maxssidRouter);
 app.use('/members',membersRouter);
 app.use('/subscribes',subscribesRouter);
+app.use('/admin',adminRouter);
+app.use('/checkd',checkduplicateRouter)
 
 
 

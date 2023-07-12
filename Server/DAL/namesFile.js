@@ -1,9 +1,9 @@
-const fs = require('fs');
 const path = require('path');
 const jFile = require('jsonfile');
-const filePath = path.join(__dirname, '../DATA/person.json');
+const { response } = require('express');
+const filePath = path.join(__dirname, '../DATA/names.json');
 
-const getAllPersonsP = async () => {
+const getAllPersonsN = async () => {
   try {
     const parsedData = await jFile.readFile(filePath);
     return parsedData;
@@ -13,7 +13,7 @@ const getAllPersonsP = async () => {
   }
 };
 
-const getPersonByIdP = async (ids) => {
+const getPersonByIdN = async (ids) => {
   try {
     const parsedData = await jFile.readFile(filePath);
     const persons = parsedData.persons.filter((per) => per.id == ids);
@@ -24,7 +24,7 @@ const getPersonByIdP = async (ids) => {
   }
 };
 
-const getPersonPermmisionsById = async (ids) => {
+const getPersonNamesById = async (ids) => {
   try {
     const parsedData = await jFile.readFile(filePath);
     const person = parsedData.persons.find((per) => per.id == ids);
@@ -35,7 +35,7 @@ const getPersonPermmisionsById = async (ids) => {
   }
 };
 
-const addPersonToJSONP = async (person) => {
+const addnamesToJSONP = async (person) => {
   try {
     const parsedData = await jFile.readFile(filePath);
 
@@ -52,7 +52,7 @@ const addPersonToJSONP = async (person) => {
   }
 };
 
-const deletePersonByIdP = async (id) => {
+const deleteNameByIdP = async (id) => {
   try {
     const parsedData = await jFile.readFile(filePath);
 
@@ -73,44 +73,7 @@ const deletePersonByIdP = async (id) => {
   }
 };
 
-const updateMemberPermissionsById = async (id, permissions) => {
-  try {
-    const parsedData = await jFile.readFile(filePath);
-    const persons = parsedData.persons;
-    
-    for (let i = 0; i < persons.length; i++) {
-      const person = persons[i];
-      if (person.id === id) {
-        person.permissions = permissions;
-        await jFile.writeFile(filePath, parsedData);
-        return 'update';
-      }
-    }
-    
-    throw new Error('Member not found.');
-  } catch (error) {
-    console.log(error);
-    throw error; // Throw the error to be caught by the calling function
-  }
-};
 
 
 
-
-
-
-
-
-
-
-
-
-
-module.exports = {
-  getAllPersonsP,
-  getPersonByIdP,
-  getPersonPermmisionsById,
-  addPersonToJSONP,
-  deletePersonByIdP,
-  updateMemberPermissionsById
-};
+module.exports = { getAllPersonsN, getPersonByIdN, getPersonNamesById,addnamesToJSONP,deleteNameByIdP};
