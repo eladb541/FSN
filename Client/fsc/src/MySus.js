@@ -71,6 +71,8 @@ export const MySubscribes = () =>  {
 
   return (
     <div>
+      <br/>
+      <br/>
       <div className="title-container">
        
         <div className="fixed-container">

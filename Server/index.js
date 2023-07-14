@@ -10,6 +10,7 @@ const membersRouter=require('./routers/membersRouter')
 const subscribesRouter=require('./routers/subscribesRouter')
 const adminRouter=require('./routers/adminRouter')
 const checkduplicateRouter=require('./routers/checkduplicateRouter')
+const registerRouter=require('./routers/registerRouter')
 
 
 
@@ -32,6 +33,8 @@ app.use('/members',membersRouter);
 app.use('/subscribes',subscribesRouter);
 app.use('/admin',adminRouter);
 app.use('/checkd',checkduplicateRouter)
+app.use('/register',registerRouter)
+
 
 
 

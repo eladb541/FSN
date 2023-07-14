@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-export const Login = () => {
+export const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const url = 'http://localhost:8000/login';
+  const url = 'http://localhost:8000/register';
 
   async function login() {
 
@@ -45,4 +45,4 @@ export const Login = () => {
     </div>
   );
 };
-export default Login;
+export default Register;

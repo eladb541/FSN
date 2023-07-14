@@ -9,7 +9,7 @@ export const Members = () => {
   const [allmembers, setallmembers] = useState([]);
   const [showmembers, setshowmembers] = useState([]);
   const [search, setSearch] = useState("");
-  
+  const [allsubscribes, setAllSubscribes] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -65,9 +65,62 @@ export const Members = () => {
 
 
 
+
+  useEffect(() => {
+    async function fetchDatachange() {
+      const url = 'http://localhost:8000/subscribes';
+      try {
+        const resp = await fetch(url, {
+          method: 'get',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        const data = await resp.json();
+        if (allsubscribes!==data) {
+          setAllSubscribes(data);
+        }        
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchDatachange();
+  }, [allsubscribes]);
+
+
+
+
+  useEffect(() => {
+    async function fetchDatachange() {
+      const url = 'http://localhost:8000/subscribes';
+      try {
+        const resp = await fetch(url, {
+          method: 'get',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        const data = await resp.json();
+        if (allsubscribes!==data) {
+          setAllSubscribes(data);
+        }        
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchDatachange();
+  }, []);
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div>
-     
+     <br/>
+     <br/>
       <div className="fixed-container">
         <input
           type="text"
@@ -81,7 +134,7 @@ export const Members = () => {
    
       <div className="members-container">
       {showmembers.map((member) => (
-  <Member key={member._id} member={member} />
+  <Member key={member._id} member={member} allsubscribes={allsubscribes} />
 ))}
 
       </div>

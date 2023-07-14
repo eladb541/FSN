@@ -48,3 +48,7 @@
   background-color: limegreen;
   color: orange;
 }
+.toolbar-link.active {
+  background-color: yellow;
+  color: limegreen;
+}

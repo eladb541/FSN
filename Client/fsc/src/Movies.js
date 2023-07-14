@@ -66,6 +66,8 @@ fetchDatachange();
 
   return (
     <div>
+      <br/>
+      <br/>
       <div className="fixed-container">
         <input
           type="text"
