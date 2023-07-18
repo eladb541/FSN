@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const AddUserPage = () => {
   const [username, setUsername] = useState('');
@@ -20,6 +20,8 @@ const AddUserPage = () => {
   const [viewMo, setViewMo] = useState(false);
   const [updateMo, setUpdateMo] = useState(false);
   const [deleteMo, setDeleteMo] = useState(false);
+  const[userSession,setusersession]=useState(sessionStorage.getItem('user'))
+  const[isadmin,setisadmin]=useState(false)
 
 
   const adduser = async (event) => {
@@ -100,12 +102,141 @@ const AddUserPage = () => {
       console.error(error);
     }
   };
+
   
+  //second.........................................  
+  useEffect(() => {
+    const checkSession1 = async () => {
+   
+    const url = 'http://localhost:8000/sessionk';
+
+      try {
+        const resp = await fetch(url, {
+          method: 'get',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        const data = await resp.json();
+        console.log(data);
+        if (!data || data === '') {
+          alert('Server problem');
+          window.location.href = '/login';
+        } else if (!userSession || userSession === ''|| userSession===null) {
+          alert('Session key is empty');
+          window.location.href = '/login';
+        } else {
+          const obj={
+            secretKeyToCompare : data.key,
+            mysession: userSession
+
+          }
+          
+          try {
+            
+            const newurl = 'http://localhost:8000/decoder';
+            const resp = await fetch(newurl, {
+              method: 'post',
+              headers: { 'Content-Type': 'application/json' },
+              
+              body: JSON.stringify(obj)
+            });
+            const data = await resp.json();
+            console.log(data)
+            if (data.isauto!==true) {
+              alert('there is not match');
+              window.location.href = '/login';
+            }
+
+
+            // Token is valid, continue with your logic...
+          } catch (error) {
+            alert('Session key is not correct');
+            console.error(error);
+            console.log("2 catch")
+            window.location.href = '/login';
+          }
+        }
+      } catch (error) {
+        alert('Session key is not correct');
+        console.log("1 catch")
+        console.error(error);
+        window.location.href = '/login';
+      }
+    };
+
+    checkSession1();
+  }, [userSession]);
+
+
+    //third
+//................................................
+
+
+
+
+
+
+    useEffect(() => {
+      const checkSession = async () => {
+     
+      const url = 'http://localhost:8000/sessionk';
+    
+        try {
+          const resp = await fetch(url, {
+            method: 'get',
+            headers: { 'Content-Type': 'application/json' },
+          });
+          const data = await resp.json(); 
+        if (data) {
+          const obj={
+            secretKeyToCompare : data.key,
+            mysession: userSession
+    
+          }
+          
+          try {
+            
+            const newurl = 'http://localhost:8000/decoder/admin';
+            const resp = await fetch(newurl, {
+              method: 'post',
+              headers: { 'Content-Type': 'application/json' },
+              
+              body: JSON.stringify(obj)
+            });
+            const data = await resp.json();
+            console.log("per")
+            console.log(data)
+            if (data!==true) {
+              alert("you have no permission to be here")
+              window.location.href = '/login';
+         
+            }
+            else{
+              setisadmin(true)
+            }
+    
+          } catch (error) {
+            console.log("arrive 65")
+            console.error(error);
+    
+          }
+    
+    
+        }
+        }
+          catch (error) {
+            console.log("arrive 66")
+            console.error(error);
+    
+          }}
+          checkSession();
+        }, [userSession]);
 
 
 
   return (
     <div>
+      {isadmin&&(
+      <div>
       <h2>Add User</h2>
       <form onSubmit={adduser}>
         <div>
@@ -181,6 +312,7 @@ const AddUserPage = () => {
         </div>
         <button type="submit">Add User</button>
      </form>
+     </div>)}
     </div>
   );
 };

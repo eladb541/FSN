@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Movie.css';
 import { UpdateMovie } from './Update_Mo';
 
-const Movie = ({ movie }) => {
+const Movie = ({ movie, updatevar, deletevar }) => {
   const [showO, setShowO] = useState(true);
   const [showup, setSup] = useState(false);
   const [Genres, setGenres] = useState([]);
@@ -71,6 +71,8 @@ const Movie = ({ movie }) => {
         deleteM={deleteM}
         change={change}
         Genres={Genres}
+        updatevar={updatevar}
+        deletevar={deletevar}
       />
     </div>
   );
@@ -84,6 +86,8 @@ const MovieDetails = ({
   deleteM,
   change,
   Genres,
+  updatevar,
+  deletevar,
 }) => {
   const premieredDate = new Date(movie.premiered).toLocaleDateString();
 
@@ -96,12 +100,17 @@ const MovieDetails = ({
           <p>Genres: {movie.Genres.join(', ')}</p>
           <p>Year of Release: {premieredDate}</p>
 
-          <button className="update-button" onClick={open}>
-            Update
-          </button>
-          <button className="delete-button" onClick={deleteM}>
-            Delete
-          </button>
+          {updatevar ? (
+            <button className="update-button" onClick={open}>
+              Update
+            </button>
+          ) : null}
+
+          {deletevar ? (
+            <button className="delete-button" onClick={deleteM}>
+              Delete
+            </button>
+          ) : null}
         </div>
       )}
 

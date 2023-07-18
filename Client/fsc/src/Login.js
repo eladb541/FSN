@@ -20,12 +20,18 @@ export const Login = () => {
         body: JSON.stringify(logindata),
       });
       const data = await resp.json();
-      console.log(data)
-     alert(data.msg)
-      
+      if (data && data.token) {
+        // Set the token in sessionStorage with the name 'user'
+        sessionStorage.setItem('user', data.token);
+        alert(data.msg)
+      }
+      else{
+        alert(data.msg)
+      }
       
     } catch (error) {
-      console.error(error);
+      alert("error");
+      console.log(error)
     }
 
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { UpdateSub } from './UpdateSub';
 import './Member.css';
 
-const MySu = ({ subscribe }) => {
+const MySu = ({ subscribe  ,updatevar, deletevar}) => {
   const [showO, setShowO] = useState(true);
   const [showup, setSup] = useState(false);
 
@@ -54,6 +54,8 @@ const MySu = ({ subscribe }) => {
       <td>{subscribe.moviename}</td>
       <td>{subscribe.movieid}</td>
       <td>{formatDate(subscribe.datemovie)}</td>
+      {updatevar&&(
+      <div>
       <td>
         {showO && (
           <button className="update-button" onClick={open}>
@@ -61,6 +63,11 @@ const MySu = ({ subscribe }) => {
           </button>
         )}
       </td>
+      </div>)}
+
+      
+      {deletevar&&(
+      <div>
       <td>
         {showO && (
           <button className="delete-button" onClick={deleteM}>
@@ -68,11 +75,19 @@ const MySu = ({ subscribe }) => {
           </button>
         )}
       </td>
+      </div>
+)}
+
+      <div>
       {showup && (
         <td colSpan="6">
           <UpdateSub subscribe={subscribe} onCancel={change} />
         </td>
       )}
+      </div>
+
+
+
     </tr>
   );
 };

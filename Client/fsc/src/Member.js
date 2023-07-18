@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {Update_M} from './Update_M'; 
 import './Member.css'; 
 
-const Member = ({ member }) => {
+const Member = ({ member,updatevar, deletevar }) => {
   const [showO, setShowO] = useState(true);
   const [showup, setSup] = useState(false);
 
@@ -47,16 +47,33 @@ const Member = ({ member }) => {
   
   return (
     <div>
-      {showO && (
         <div className='member-container'>
+      {showO && (
+        <div>
+      
           <h2>{member.name}</h2>
           <p>Email: {member.email}</p>
           <p>City: {member.city}</p>
-          <button className="update-button" onClick={open}>Update</button>
-          <button className="delete-button" onClick={deleteM}>Delete</button>
-        </div>
+        
+       </div>
       )}
 
+
+{updatevar ? (
+          <button className="update-button" onClick={open}>
+            Update
+          </button>
+        ) : null}
+
+        {deletevar ? (
+          <button className="delete-button" onClick={deleteM}>
+            Delete
+          </button>
+        ) : null}
+
+
+
+ </div>
       {showup && (
         <div>
           <Update_M member={member} onCancel={change} />

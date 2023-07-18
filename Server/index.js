@@ -11,6 +11,9 @@ const subscribesRouter=require('./routers/subscribesRouter')
 const adminRouter=require('./routers/adminRouter')
 const checkduplicateRouter=require('./routers/checkduplicateRouter')
 const registerRouter=require('./routers/registerRouter')
+const sessionkRouter=require('./routers/sessionkRouter')
+const decoderRouter=require('./routers/decoderRouter')
+
 
 
 
@@ -34,6 +37,8 @@ app.use('/subscribes',subscribesRouter);
 app.use('/admin',adminRouter);
 app.use('/checkd',checkduplicateRouter)
 app.use('/register',registerRouter)
+app.use('/sessionk',sessionkRouter)
+app.use('/decoder',decoderRouter)
 
 
 

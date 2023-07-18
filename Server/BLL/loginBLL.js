@@ -32,4 +32,3 @@ const login = async (obj) => {
 };
 
 module.exports = { login };
-

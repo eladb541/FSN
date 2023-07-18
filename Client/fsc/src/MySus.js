@@ -9,7 +9,11 @@ export const MySubscribes = () =>  {
   const [allsubscribes, setAllSubscribes] = useState([]);
   const [showsubscribes, setShowSubscribes] = useState([]);
   const [search, setSearch] = useState('');
-
+  const[userSession,setusersession]=useState(sessionStorage.getItem('user'))
+  const[subcreate,screatMo]=useState(false)
+  const[subdelete,sdeleteMo]=useState(false)
+  const[subupdate,supdateMo]=useState(false)
+  const[subview,sviewMo]=useState(false)
 
   useEffect(() => {
     fetchData();
@@ -69,6 +73,140 @@ export const MySubscribes = () =>  {
 
 
 
+  
+  //second.........................................  
+  useEffect(() => {
+    const checkSession = async () => {
+   
+    const url = 'http://localhost:8000/sessionk';
+
+      try {
+        const resp = await fetch(url, {
+          method: 'get',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        const data = await resp.json();
+        console.log(data);
+        if (!data || data === '') {
+          alert('Server problem');
+          window.location.href = '/login';
+        } else if (!userSession || userSession === ''||userSession===null) {
+          alert('Session key is empty');
+          window.location.href = '/login';
+        } else {
+          const obj={
+            secretKeyToCompare : data.key,
+            mysession: userSession
+
+          }
+          
+          try {
+            
+            const newurl = 'http://localhost:8000/decoder';
+            const resp = await fetch(newurl, {
+              method: 'post',
+              headers: { 'Content-Type': 'application/json' },
+              
+              body: JSON.stringify(obj)
+            });
+            const data = await resp.json();
+            console.log(data)
+            if (data.isauto!==true) {
+              alert('there is not match');
+              window.location.href = '/login';
+            }
+
+
+            // Token is valid, continue with your logic...
+          } catch (error) {
+            alert('Session key is not correct');
+            console.error(error);
+            console.log("2 catch")
+            window.location.href = '/login';
+          }
+        }
+      } catch (error) {
+        alert('Session key is not correct');
+        console.log("1 catch")
+        console.error(error);
+        window.location.href = '/login';
+      }
+    };
+
+    checkSession();
+  }, [userSession]);
+
+
+    //third
+//................................................
+
+
+
+
+
+
+    useEffect(() => {
+      const checkSession = async () => {
+     
+      const url = 'http://localhost:8000/sessionk';
+    
+        try {
+          const resp = await fetch(url, {
+            method: 'get',
+            headers: { 'Content-Type': 'application/json' },
+          });
+          const data = await resp.json(); 
+        if (data) {
+          const obj={
+            secretKeyToCompare : data.key,
+            mysession: userSession
+    
+          }
+          
+          try {
+            
+            const newurl = 'http://localhost:8000/decoder/subscribes';
+            const resp = await fetch(newurl, {
+              method: 'post',
+              headers: { 'Content-Type': 'application/json' },
+              
+              body: JSON.stringify(obj)
+            });
+            const data = await resp.json();
+            console.log("per")
+            console.log(data)
+            if (data) {
+              screatMo(data.subC)
+              sdeleteMo(data.subD)
+              supdateMo(data.subU)
+              sviewMo(data.subV)
+    
+    
+    
+    
+            }
+    
+          } catch (error) {
+            console.log("arrive 65")
+            console.error(error);
+    
+          }
+    
+    
+        }
+        }
+          catch (error) {
+            console.log("arrive 66")
+            console.error(error);
+    
+          }}
+          checkSession();
+        }, [userSession]);
+
+
+
+
+
   return (
     <div>
       <br/>
@@ -94,24 +232,27 @@ export const MySubscribes = () =>  {
             <th>Name of the movie</th>
             <th>ID of the movie</th>
             <th>Date of viewing</th>
-            <th>Update</th>
-            <th>Delete</th>
+            {subupdate && ( <th>Update</th>)}
+           {subdelete&&(<th>Delete</th>)} 
           </tr>
-          {showsubscribes.map((subscribe) => (
-            <MySu
-              key={subscribe._id}
-              subscribe={subscribe}
+          {subview&&(<div>
+             {showsubscribes.map((subscribe) => (
+              <MySu
+                key={subscribe._id}
+                subscribe={subscribe}
+                updatevar={subupdate} deletevar={subdelete}
+              />
+               ))}
+               </div>)}
              
-            />
-          ))}
         </tbody>
       </table>
-
-      <div>
+{subcreate&&(<div>
         <Link to="/addsubscribe">
           <button className="add-member-button">Add New Subscribe</button>
         </Link>
-      </div>
+      </div>)}
+      
     </div>
   );
 };

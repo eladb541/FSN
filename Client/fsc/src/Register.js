@@ -35,13 +35,15 @@ export const Register = () => {
 
   return (
     <div>
-      <h1>Login</h1>
+     <br />
+     <br />
+     <br />
       <br />
       Username: <input type='text' onChange={(e) => setUsername(e.target.value)} />
       <br />
       Password: <input type='password' onChange={(e) => setPassword(e.target.value)} />
       <br />
-      <button onClick={() => login()}>Login</button>
+      <button onClick={() => login()}>register</button>
     </div>
   );
 };
