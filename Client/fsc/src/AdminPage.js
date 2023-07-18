@@ -169,34 +169,6 @@ const AdminPage = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   useEffect(() => {
     setshowusers(allusers);
   }, [allusers]);
@@ -281,9 +253,9 @@ const AdminPage = () => {
   return (
     <div className="admin-page">
       {isadmin&&( <div>
-      <br /> 
+      <br />  <br />  <br /> 
       <br />
-      <h1>AdminPage</h1>
+      
       <div className="fixed-container">
         <input
           type="text"

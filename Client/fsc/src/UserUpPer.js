@@ -32,6 +32,7 @@ const PermissionUpdatePage = ({ user, cancel }) => {
     } catch (error) {
       console.error(error);
     }
+    onCancel()
   };
 
   return (

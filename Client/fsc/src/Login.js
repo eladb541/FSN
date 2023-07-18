@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 export const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const[names,setnames]=useState("")
 
   const url = 'http://localhost:8000/login';
 
   async function login() {
-
     const logindata = {
       username: username,
       password: password,
@@ -23,20 +23,53 @@ export const Login = () => {
       if (data && data.token) {
         // Set the token in sessionStorage with the name 'user'
         sessionStorage.setItem('user', data.token);
-        alert(data.msg)
+       
+        // Now, fetch the name
+        const urlmy = 'http://localhost:8000/sessionk';
+
+        try {
+          const resp = await fetch(urlmy, {
+            method: 'get',
+            headers: { 'Content-Type': 'application/json' },
+          });
+          const data = await resp.json();
+          const obj = {
+            secretKeyToCompare: data.key,
+            mysession: sessionStorage.getItem('user'), // Get the userSession from sessionStorage
+          };
+          console.log(obj);
+          try {
+            const newurl = 'http://localhost:8000/decoder/namecoded';
+            const resp = await fetch(newurl, {
+              method: 'post',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(obj),
+            });
+            const data = await resp.json();
+            if (data.username !== null) {
+              // Set the name in sessionStorage with the name 'name'
+              sessionStorage.setItem('name', data.username);
+              setnames(data.username)
+            
+            }
+          } catch (error) {
+            console.error("catch2");
+          }
+        } catch (error) {
+          console.error("catch3");
+        }
+        
+        alert(data.msg);
+        console.log("succeed")
+     
+        
+      } else {
+        alert(data.msg);
       }
-      else{
-        alert(data.msg)
-      }
-      
     } catch (error) {
       alert("error");
-      console.log(error)
+      console.log(error);
     }
-
-
-
-
   }
 
   return (
@@ -51,4 +84,5 @@ export const Login = () => {
     </div>
   );
 };
+
 export default Login;

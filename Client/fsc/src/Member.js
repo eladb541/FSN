@@ -1,13 +1,14 @@
+// Member.js
 import React, { useState } from 'react';
-import {Update_M} from './Update_M'; 
-import './Member.css'; 
+import { Update_M } from './Update_M';
+import './Member.css';
 
-const Member = ({ member,updatevar, deletevar }) => {
+const Member = ({ member, updatevar, deletevar }) => {
   const [showO, setShowO] = useState(true);
   const [showup, setSup] = useState(false);
 
   if (!member) {
-    return null; 
+    return null;
   }
 
   const open = () => {
@@ -15,11 +16,10 @@ const Member = ({ member,updatevar, deletevar }) => {
     setSup(!showup);
   };
 
-  const change = () => { 
+  const change = () => {
     setShowO(!showO);
     setSup(!showup);
   };
-
 
   const deleteM = async () => {
     const addUrl = 'http://localhost:8000/members';
@@ -43,40 +43,51 @@ const Member = ({ member,updatevar, deletevar }) => {
     }
   };
 
-
-  
   return (
     <div>
-        <div className='member-container'>
-      {showO && (
-        <div>
-      
-          <h2>{member.name}</h2>
-          <p>Email: {member.email}</p>
-          <p>City: {member.city}</p>
-        
-       </div>
-      )}
-
-
-{updatevar ? (
+      <div className='member-container'>
+        {showO && (
+          
+          <div>
+            <h2>{member.name}</h2>
+            <p>Email: {member.email}</p>
+            <p>City: {member.city}</p>
+          </div>
+        )}
+          <div>
+            {showO&&(
+            <div>
+        {updatevar ? (
+         
           <button className="update-button" onClick={open}>
             Update
           </button>
+          
         ) : null}
+        </div>)}
+          </div>
 
+
+
+
+          <div>
+            {showO&&(
+            <div>
         {deletevar ? (
           <button className="delete-button" onClick={deleteM}>
             Delete
           </button>
         ) : null}
+     </div>
+     )}
+     </div>
+     
+     
+      </div>
 
-
-
- </div>
       {showup && (
         <div>
-          <Update_M member={member} onCancel={change} />
+          <Update_M member={member} onCancel={change} updatevar={updatevar} deletevar={deletevar} />
         </div>
       )}
     </div>

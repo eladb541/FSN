@@ -26,6 +26,41 @@ const AddUserPage = () => {
 
   const adduser = async (event) => {
     event.preventDefault()
+  // Check if any of the required fields is empty
+  if (!username || !sessionTO || !email || !name) {
+    alert('Please fill in all the required fields(name,username,session,email)  .');
+    return;
+  }
+
+  // Input validation checks
+  const usernameRegex = /^[A-Za-z0-9]+$/;
+  if (!usernameRegex.test(username)) {
+    alert('Username should contain only letters and numbers without spaces.');
+    return;
+  }
+
+  const sessionTOResult = parseFloat(sessionTO);
+  if (isNaN(sessionTOResult) || sessionTOResult <= 0) {
+    alert('Session Timeout should be a positive number.');
+    return;
+  }
+
+  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+  if (!emailRegex.test(email)) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+
+  const nameRegex = /^[A-Za-z\s]+$/;
+  if (!nameRegex.test(name)) {
+    alert('Name should contain only letters and spaces.');
+    return;
+  }
+
+
+
+
+
     const addUrl = 'http://localhost:8000/checkd'; // Update the URL
     const posturl='http://localhost:8000/admin';
     const params = {
@@ -237,6 +272,7 @@ const AddUserPage = () => {
     <div>
       {isadmin&&(
       <div>
+        <br/> <br/> <br/> <br/>
       <h2>Add User</h2>
       <form onSubmit={adduser}>
         <div>
@@ -244,7 +280,7 @@ const AddUserPage = () => {
           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
         </div>
         <div>
-          <label>Session Timeout:</label>
+          <label>Session Timeout - minutes:</label>
           <input type="text" value={sessionTO} onChange={(e) => setSessionTO(e.target.value)} />
         </div>
         <div>

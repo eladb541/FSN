@@ -26,28 +26,56 @@ export const Add_M = () => {
   };
 
   const createNewMember = async () => {
+    // Check if any of the input fields is empty
+    if (!name || !city || !email) {
+      alert('Please fill in all the required fields.');
+      return;
+    }
+  
+    // Input validation checks
+    const nameRegex = /^[A-Za-z\s]+$/;
+    if (!nameRegex.test(name)) {
+      alert('Name should contain only English letters and spaces.');
+      return;
+    }
+  
+    const cityRegex = /^[A-Za-z\s]+$/;
+    if (!cityRegex.test(city)) {
+      alert('City should contain only English letters and spaces.');
+      return;
+    }
+  
+    const emailRegex = /^[A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z]+$/;
+    if (!emailRegex.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+  
+    // Save new member logic
     const addUrl = 'http://localhost:8000/members';
     const newMember = {
       name: name,
       city: city,
       email: email,
     };
-
+  
     console.log(newMember);
-
+  
     try {
       const response = await fetch(addUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newMember),
       });
-
+  
       const data = await response.json();
       console.log(data);
     } catch (error) {
       console.error(error);
     }
   };
+  
+  
 
   useEffect(() => {
     setInputAnimation(true);
@@ -186,21 +214,9 @@ export const Add_M = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   return (
     <div>
+      <br/><br/><br/><br/>
       {isadmin&&(
       <div>
     <div className="container body">

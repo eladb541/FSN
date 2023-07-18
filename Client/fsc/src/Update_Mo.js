@@ -24,7 +24,44 @@ export const UpdateMovie = ({ movie, onCancel, genres }) => {
     setImageUrl(event.target.value);
   };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   const saveChanges = async () => {
+    // Input validation checks
+    const nameRegex = /^[A-Za-z0-9\s]+$/;
+    if (!nameRegex.test(name)) {
+      alert('Name should contain only letters, numbers, and spaces.');
+      return;
+    }
+  
+    if (selectedGenres.length !== 3 || new Set(selectedGenres).size !== selectedGenres.length) {
+      alert('Please select three different genres.');
+      return;
+    }
+  
+    if (imageUrl.trim() === '') {
+      alert('ImageUrl should not be empty.');
+      return;
+    }
+  
+    if (selectedDate === null) {
+      alert('Please select a premiered date.');
+      return;
+    }
+  
+    // Save changes logic
     const updateUrl = 'http://localhost:8000/movies';
     const updatedMovie = {
       name: name,
@@ -32,29 +69,29 @@ export const UpdateMovie = ({ movie, onCancel, genres }) => {
       Genres: selectedGenres,
       ImageUrl: imageUrl,
     };
-
   
     const params = {
       obj: updatedMovie,
       _id: movie._id,
     };
-    console.log(params)
-
+    console.log(params);
+  
     try {
       const response = await fetch(updateUrl, {
         method: 'put',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(params),
       });
-
+  
       const data = await response.json();
       console.log(data);
     } catch (error) {
       console.error(error);
     }
-
+  
     onCancel();
   };
+  
 
   return (
     <div className="update-container">

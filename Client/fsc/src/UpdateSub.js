@@ -89,6 +89,24 @@ export const UpdateSub = ({ subscribe, onCancel }) => {
   };
 
   const saveSubscription = async () => {
+    // Check if any of the required fields is null
+    if (!selectedMember || !selectedMovie || !selectedDate) {
+      alert('Please select all the required fields.');
+      return;
+    }
+  
+    // Input validation checks
+   
+  
+  
+  
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (selectedDate < today) {
+      alert('Please select a future date.');
+      return;
+    }
+  
     const updateUrl = 'http://localhost:8000/subscribes';
     const updatedSubscription = {
       membername: selectedMember,
@@ -98,26 +116,28 @@ export const UpdateSub = ({ subscribe, onCancel }) => {
       datemovie: selectedDate, // Convert date to ISO string format
       createdAt: subscribe.createdAt,
     };
-
+  
     const params = {
       obj: updatedSubscription,
       _id: subscribe._id,
     };
-
+  
     try {
       const response = await fetch(updateUrl, {
         method: 'put',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(params),
       });
-
+  
       const data = await response.json();
       console.log(data);
       cancel();
     } catch (error) {
       console.error(error);
     }
+    onCancel();
   };
+  
 
   return (
     <div>

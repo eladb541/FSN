@@ -19,12 +19,19 @@ const login = async (obj) => {
       return { status: 500, msg: 'Session is not found' };
     }
 
+    const sessionTO = user.sessionTO; // 12 minutes
+
+    // Calculate the expiration time in milliseconds (12 minutes * 60,000 milliseconds per minute)
+    const expirationTimeInMilliseconds1 = sessionTO * 60000;
+
+    // Create the payload for the token with the sessionTO property
     const accessToken = jwt.sign(
       { id: user.id, username: user.username, permissions: userPer },
-      session.key
+      session.key,
+      { expiresIn: sessionTO * 60 } // Convert minutes to seconds
     );
 
-    return { status: 200, token: accessToken ,msg:"login succeed"};
+    return { status: 200, token: accessToken, msg: 'login succeed', sto: Date.now() + expirationTimeInMilliseconds1 };
   } catch (error) {
     console.error(error);
     return { status: 500, msg: 'Server error' };

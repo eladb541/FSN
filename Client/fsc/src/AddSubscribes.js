@@ -145,22 +145,6 @@ export const AddSubscribe = () => {
         }, [userSession]);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   useEffect(() => {
     async function fetchMovies() {
       const url = 'http://localhost:8000/movies';
@@ -239,12 +223,18 @@ useEffect(() => {
   };
 
   const saveSubscription = async () => {
+    // Check if any of the required fields is null
+    if (!selectedMember || !selectedMovie || !selectedDate) {
+      alert('Please select all the required fields.');
+      return;
+    }
+  
     const addUrl = 'http://localhost:8000/subscribes';
     const newSubscription = {
       membername: selectedMember,
       memberid: selectedMemberId,
       moviename: selectedMovie,
-      movieid: selectedMovieId ,
+      movieid: selectedMovieId,
       datemovie: selectedDate,
       craetedaAt: new Date(),
     };
@@ -262,6 +252,7 @@ useEffect(() => {
       console.error(error);
     }
   };
+  
   
 
   return (
