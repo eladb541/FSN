@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 export const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -44,6 +44,20 @@ export const Register = () => {
       Password: <input type='password' onChange={(e) => setPassword(e.target.value)} />
       <br />
       <button onClick={() => login()}>register</button>
+
+
+
+
+      <br/>
+<br/>
+<div>
+have already an account?
+      <Link to="/login">
+        <button>login</button>
+      </Link>
+    </div>
+
+
     </div>
   );
 };

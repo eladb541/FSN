@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './AddMovie.css';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+
 
 export const AddSubscribe = () => {
   const [allmovies, setAllMovies] = useState([]);
@@ -257,6 +259,7 @@ useEffect(() => {
 
   return (
     <div>
+      <div>
       <br/>
       <br/>
       <br/>
@@ -298,7 +301,22 @@ useEffect(() => {
         Add Subscription
       </button>
       </div>
-    )}</div>
+
+
+    
+
+
+
+
+)}
+<br/>
+<br/>
+<br/>
+<Link to="/subscribes">
+        <button>back to  subscribes </button>
+      </Link>
+      </div>
+    </div>
   );
 };
 

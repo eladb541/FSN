@@ -214,38 +214,6 @@ export const Members = () => {
 
 
 
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -263,12 +231,12 @@ export const Members = () => {
         />
       </div>
       
-   {viewMo&& (
+      {viewMo&& (
       <div className="members-container">
-
+      
       {showmembers.map((member) => (
-  <Member key={member._id} member={member} allsubscribes={allsubscribes}  updatevar={updateMo} deletevar={deleteMo}/>
-))}
+      <Member key={member._id} member={member} allsubscribes={allsubscribes}  updatevar={updateMo} deletevar={deleteMo}/>
+      ))}
 
       </div>
       )}

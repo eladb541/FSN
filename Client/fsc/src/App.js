@@ -18,6 +18,7 @@ import Register from './Register';
 
 
 
+
 function App() {
   return (
     <div className="App">
@@ -36,6 +37,8 @@ function App() {
           <Route exact path="/addsubscribe" element={<AddSubscribe />} />
           <Route exact path="/adduser" element={<AddUserPage />} />
           <Route exact path="register" element={<Register />} />
+          
+
         </Routes>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const AddUserPage = () => {
   const [username, setUsername] = useState('');
@@ -348,6 +349,16 @@ const AddUserPage = () => {
         </div>
         <button type="submit">Add User</button>
      </form>
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+     <Link to="/admin">
+        <button>back to admin page </button>
+      </Link>
+
      </div>)}
     </div>
   );

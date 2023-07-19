@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import 'react-datepicker/dist/react-datepicker.css';
-
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 export const Add_M = () => {
   const [name, setName] = useState("");
@@ -244,6 +244,18 @@ export const Add_M = () => {
       </div>
       <button className="button" onClick={createNewMember}>Create New</button>
     </div>
+
+<br/><br/><br/>
+
+<div>
+      {/* Add the button that redirects to the register page */}
+      <Link to="/members">
+        <button>back to members</button>
+      </Link>
+    </div>
+
+
+
     </div>)}
     </div>
   );

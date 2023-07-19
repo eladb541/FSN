@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export const MemberSub = ({ mysubscribe }) => {
+export const MovieSub = ({ mysubscribe }) => {
   const formatDate = (date) => {
     const d = new Date(date);
     const day = String(d.getDate()).padStart(2, '0');
@@ -10,7 +10,7 @@ export const MemberSub = ({ mysubscribe }) => {
   };
 
   const handleMovieClick = () => {
-    window.location.href = '/movies';
+    window.location.href = '/members';
    
   };
 
@@ -27,7 +27,7 @@ export const MemberSub = ({ mysubscribe }) => {
 
           <p>Date: {formatDate(sub.datemovie)}</p>
           <div onClick={handleMovieClick}>
-            Moviename: {sub.moviename}
+            member: {sub.membername}
           </div>
           <hr/>
         </div>
@@ -36,4 +36,4 @@ export const MemberSub = ({ mysubscribe }) => {
   );
 };
 
-export default MemberSub;
+export default MovieSub;

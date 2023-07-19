@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 export const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -50,7 +50,7 @@ export const Login = () => {
               // Set the name in sessionStorage with the name 'name'
               sessionStorage.setItem('name', data.username);
               setnames(data.username)
-            
+              window.location.href = '/movies';
             }
           } catch (error) {
             console.error("catch2");
@@ -81,6 +81,21 @@ export const Login = () => {
       Password: <input type='password' onChange={(e) => setPassword(e.target.value)} />
       <br />
       <button onClick={() => login()}>Login</button>
+
+
+
+
+
+
+
+
+
+<br/>
+<br/>
+haven't you register?
+      <Link to="/register">
+        <button>Register</button>
+      </Link>
     </div>
   );
 };

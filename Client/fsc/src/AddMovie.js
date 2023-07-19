@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './AddMovie.css';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 export const Addmovie = () => {
   const [Genres, setGenres] = useState([]);
@@ -69,10 +70,10 @@ export const Addmovie = () => {
     if (!validateInput()) {
       return;
     }
-
+  
     const url = 'http://localhost:8000/maxsId';
     const addurl = 'http://localhost:8000/movies';
-
+  
     try {
       const resp1 = await fetch(url, {
         method: 'get',
@@ -80,10 +81,10 @@ export const Addmovie = () => {
       });
       const data1 = await resp1.json();
       console.log(data1);
-
+  
       setunique(data1._id);
       setid(Number(data1.maxid) + 1);
-
+  
       const newmovie = {
         id: Number(data1.maxid) + 1, // Use the maxid value directly
         name: selectname,
@@ -91,7 +92,7 @@ export const Addmovie = () => {
         ImageUrl: selectImageUrl,
         premiered: Date(selectedDate),
       };
-
+  
       console.log(newmovie);
       try {
         const resp2 = await fetch(addurl, {
@@ -100,15 +101,19 @@ export const Addmovie = () => {
           body: JSON.stringify(newmovie),
         });
         const data2 = await resp2.json();
+        console.log("here");
         console.log(data2);
+       
       } catch (error) {
         console.error(error);
+        alert('Error occurred while creating the movie.'); // Show a user-friendly error message
       }
     } catch (error) {
       console.error(error);
+      alert('Error occurred while fetching data.'); // Show a user-friendly error message
     }
   };
-
+  
   useEffect(() => {
     const fetchGenres = async () => {
       const url = 'http://localhost:8000/genres';
@@ -286,7 +291,18 @@ export const Addmovie = () => {
 
           <br />
           <button onClick={Createnew}>Create new</button>
+        
+          <br /> <br /> <br /> <br /> <br />
+          <div>
+      {/* Add the button that redirects to the register page */}
+      <Link to="/movies">
+        <button>Back to movies</button>
+      </Link>
+    </div>
+        
         </div>
+
+        
       )}
     </div>
   );
