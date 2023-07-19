@@ -1,11 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import './Movie.css';
 import { UpdateMovie } from './Update_Mo';
+import MovieSub from './MovieSub';
 
-const Movie = ({ movie, updatevar, deletevar }) => {
+
+const Movie = ({ movie, updatevar, deletevar,allsubscribes }) => {
   const [showO, setShowO] = useState(true);
   const [showup, setSup] = useState(false);
   const [Genres, setGenres] = useState([]);
+  const [showmore, setshowmore] = useState(false);
+  const [moreteext, setshowtext] = useState('showmore');
+  const [mysub, setmysub] = useState([]);
+
+
+  useEffect(() => {
+    const filteredSubscriptions = allsubscribes.filter(sub => sub.movieid === movie._id);
+    setmysub(filteredSubscriptions);
+  }, [allsubscribes, movie]);
+
+
+
+  const showmorefun = () => {
+    setshowmore(!showmore);
+    if (!showmore) {
+      setshowtext('showless');
+    } else {
+      setshowtext('showmore');
+    }
+  };
 
   useEffect(() => {
     const fetchGenres = async () => {
@@ -68,7 +90,11 @@ const Movie = ({ movie, updatevar, deletevar }) => {
         showO={showO}
         showup={showup}
         open={open}
+        showmore={showmore}
+        moreteext={moreteext}
+        mysub={mysub}
         deleteM={deleteM}
+        showmorefun={showmorefun}
         change={change}
         Genres={Genres}
         updatevar={updatevar}
@@ -83,6 +109,10 @@ const MovieDetails = ({
   showO,
   showup,
   open,
+  showmore,
+  moreteext,
+  mysub,
+  showmorefun,
   deleteM,
   change,
   Genres,
@@ -111,14 +141,30 @@ const MovieDetails = ({
               Delete
             </button>
           ) : null}
+
+          <button className='update-button' onClick={showmorefun}>
+          {moreteext}
+        </button>
+
+
+
+        
         </div>
+        
       )}
+
 
       {showup && (
         <div>
           <UpdateMovie movie={movie} onCancel={change} genres={Genres} />
         </div>
       )}
+
+{showmore && (
+          <div>
+            <MovieSub mysubscribe={mysub} onCancel={showmorefun} />
+          </div>
+        )}
     </>
   );
 };

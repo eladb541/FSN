@@ -13,10 +13,28 @@ export const Movies = () => {
   const[deleteM,sdeleteM]=useState(false)
   const[updateM,supdateM]=useState(false)
   const[viewM,sviewM]=useState(false)
+  const [allsubscribes, setAllSubscribes] = useState([]);
 
 
 
-
+  useEffect(() => {
+    async function fetchDatachange() {
+      const url = 'http://localhost:8000/subscribes';
+      try {
+        const resp = await fetch(url, {
+          method: 'get',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        const data = await resp.json();
+        if (allsubscribes!==data) {
+          setAllSubscribes(data);
+        }        
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchDatachange();
+  }, [allsubscribes]);
 
 
 useEffect(() => {
@@ -207,7 +225,7 @@ fetchDatachange();
    {viewM &&(
       <div className="movies-container">
         {showmovies.map((movie) => (
-          <Movie key={movie._id} movie={movie} updatevar={updateM} deletevar={deleteM} />
+          <Movie key={movie._id} movie={movie} updatevar={updateM} deletevar={deleteM} allsubscribes={allsubscribes} />
         ))}
       </div>
       )}
